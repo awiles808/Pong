@@ -5,6 +5,20 @@ var ballY = 50;
 var ballSpeedX = 10;
 var ballSpeedY = 4;
 
+var paddle1Y = 250;
+const paddleHeight = 100;
+
+function calculateMousePos(evt) {
+  var rect = canvas.getBoundingClientRect();
+  var root = document.documentElement;
+  var mouseX = evt.clientX - rect.left - root.scrollLeft;
+  var mouseY = evt.clientY - rect.top - root.scrollTop;
+  return {
+          x:mouseX,
+          y:mouseY
+  };
+}
+
 
 window.onload = function() {
   alert('Ready To Rumble?');
@@ -17,6 +31,14 @@ window.onload = function() {
           drawCanvas();
 
     }, 1000/framesPerSecond);
+
+    canvas.addEventListener('mousemove',
+              function(evt){
+                      var mousePos = calculateMousePos(evt);
+                      paddle1Y = mousePos.y;
+
+              });
+
 }
 
 
@@ -43,7 +65,7 @@ function drawCanvas() {
   //makes the screen black
     colorRect(0,0,canvas.width,canvas.height,'black');
     //this is player1 paddle
-    colorRect(0,210,10,100,'white');
+    colorRect(0,paddle1Y,10,100,'white');
     //next line draws the ball
     colorCirle(ballX, ballY, 10, 'white')
 
