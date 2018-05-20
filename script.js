@@ -27,6 +27,13 @@ function calculateMousePos(evt) {
   };
 }
 
+function handleMouseClick(evt) {
+          if(showingWinScreen){
+            player1Score = 0;
+            player2Score = 0;
+            showingWinScreen = false;
+          }
+}
 
 window.onload = function() {
   alert('Ready To Rumble?');
@@ -40,6 +47,8 @@ window.onload = function() {
 
     }, 1000/framesPerSecond);
 
+    canvas.addEventListener('mousedown', handleMouseClick);
+
     canvas.addEventListener('mousemove',
               function(evt){
                       let mousePos = calculateMousePos(evt);
@@ -52,8 +61,6 @@ window.onload = function() {
 function ballReset() {
         if(player1Score >= winningScore ||
            player2Score >= winningScore) {
-                  player1Score = 0;
-                  player2Score = 0;
                   showingWinScreen = true;
            }
 
@@ -129,9 +136,18 @@ function drawCanvas() {
     colorRect(0,0,canvas.width,canvas.height,'black');
 
     if(showingWinScreen) {
-      canvasContext.fillStyle = "white";
-      canvasContext.fillText("Click To Play Again!", 100,100);
-      return;
+            canvasContext.fillStyle = "white";
+
+            if(player1Score >= winningScore){
+                      canvasContext.fillText("PLayer 1 WON!", 350,200);
+
+            }else if(player2Score >= winningScore){
+                  canvasContext.fillText("Player 2 WON!!", 350,200);
+            }
+
+
+              canvasContext.fillText("Click To Play Again!", 350,500);
+              return;
     }
     //this is player1 leftpaddle
     colorRect(0,paddle1Y,paddleThickness,paddleHeight,'white');
