@@ -62,8 +62,15 @@ function moveEverything() {
                       ballReset();
           }
     }
+
     if(ballX > canvas.width) {
-            ballSpeedX = -ballSpeedX;
+            if(ballY > paddle2Y &&
+              ballY < paddle2Y+paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+            } else {
+                    ballReset();
+    }
+
 
           }
     if(ballY < 0) {
