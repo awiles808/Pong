@@ -131,6 +131,12 @@ function moveEverything() {
           }
 }
 
+function drawNet () {
+  for(var i=0;i<canvas.height; i+=40) {
+          colorRect(canvas.width/2-1,i,2,20,'white');
+  }
+}
+
 function drawCanvas() {
   //makes the screen black
     colorRect(0,0,canvas.width,canvas.height,'black');
@@ -149,6 +155,9 @@ function drawCanvas() {
               canvasContext.fillText("Click To Play Again!", 350,500);
               return;
     }
+
+    drawNet ();
+
     //this is player1 leftpaddle
     colorRect(0,paddle1Y,paddleThickness,paddleHeight,'white');
     //this is computer rightpaddle
