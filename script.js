@@ -144,7 +144,7 @@ function drawNet () {
   //creating for loop to draw net in the canvas from top to bottom every 40 px.
   for(var i=0;i<canvas.height; i+=40) {
           //using colorRect function to draw the lines at half of the canvas's width.
-          colorRect(canvas.width/2-1,i,2,20,'white');
+          colorRect(canvas.width/2-1,i,2,20,'green');
   }
 }
 
@@ -163,13 +163,13 @@ function drawCanvas() {
             }
 
 
-              canvasContext.fillText("Click To Play Again!", 350,500);
+              canvasContext.fillText("Click To Play Again!", 350,500 );
               return;
     }
   //calling the draw net function
     drawNet ();
 
-    //this is player1 leftpaddle
+    //this is player1 leftpaddle, starts at 0, takes grabs the variables that were defined at the top.
     colorRect(0,paddle1Y,paddleThickness,paddleHeight,'white');
     //this is computer rightpaddle
     colorRect(canvas.width -paddleThickness,paddle2Y,
