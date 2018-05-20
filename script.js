@@ -35,18 +35,30 @@ window.onload = function() {
     canvas.addEventListener('mousemove',
               function(evt){
                       var mousePos = calculateMousePos(evt);
-                      paddle1Y = mousePos.y;
+                      paddle1Y = mousePos.y-(paddleHeight/2);
+
 
               });
-
 }
 
+function ballReset() {
+        ballSpeedX = -ballSpeedX;
+        ballX = canvas.width/2;
+        ballY = canvas.height/2;
+}
 
 function moveEverything() {
     ballX = ballX + ballSpeedX;
     ballY = ballY + ballSpeedY;
+
     if(ballX < 0) {
-            ballSpeedX = -ballSpeedX;
+      //if the ball is below the paddle and aove the paddle|| top+height when crossing the left side, it will flip the horizontal speed other wise it will reset
+            if(ballY > paddle1Y &&
+               ballY < paddle1Y+paddleHeight) {
+                      ballSpeedX = -ballSpeedX;
+               } else {
+                      ballReset();
+          }
     }
     if(ballX > canvas.width) {
             ballSpeedX = -ballSpeedX;
@@ -65,7 +77,7 @@ function drawCanvas() {
   //makes the screen black
     colorRect(0,0,canvas.width,canvas.height,'black');
     //this is player1 paddle
-    colorRect(0,paddle1Y,10,100,'white');
+    colorRect(0,paddle1Y,10,paddleHeight,'white');
     //next line draws the ball
     colorCirle(ballX, ballY, 10, 'white')
 
