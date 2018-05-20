@@ -1,20 +1,20 @@
-var canvas;
-var canvasContext;
-var ballX = 50;
-var ballY = 50;
-var ballSpeedX = 10;
-var ballSpeedY = 4;
+let canvas;
+let canvasContext;
+let ballX = 50;
+let ballY = 50;
+let ballSpeedX = 10;
+let ballSpeedY = 4;
 
-var paddle1Y = 250;
-var paddle2Y = 250;
+let paddle1Y = 250;
+let paddle2Y = 250;
 const paddleThickness = 10;
 const paddleHeight = 100;
 
 function calculateMousePos(evt) {
-  var rect = canvas.getBoundingClientRect();
-  var root = document.documentElement;
-  var mouseX = evt.clientX - rect.left - root.scrollLeft;
-  var mouseY = evt.clientY - rect.top - root.scrollTop;
+  let rect = canvas.getBoundingClientRect();
+  let root = document.documentElement;
+  let mouseX = evt.clientX - rect.left - root.scrollLeft;
+  let mouseY = evt.clientY - rect.top - root.scrollTop;
   return {
           x:mouseX,
           y:mouseY
@@ -27,7 +27,7 @@ window.onload = function() {
     canvas = document.getElementById('pongCanvas');
     canvasContext = canvas.getContext('2d');
 
-    var framesPerSecond = 30
+    let framesPerSecond = 30
     setInterval(function() {
           moveEverything();
           drawCanvas();
@@ -36,7 +36,7 @@ window.onload = function() {
 
     canvas.addEventListener('mousemove',
               function(evt){
-                      var mousePos = calculateMousePos(evt);
+                      let mousePos = calculateMousePos(evt);
                       paddle1Y = mousePos.y-(paddleHeight/2);
 
 
@@ -49,9 +49,22 @@ function ballReset() {
         ballY = canvas.height/2;
 }
 
+//setting up the AI movement
+function computerMovement() {
+        if(paddle2Y < ballY) {
+                paddle2Y += 6;
+        } else {
+                paddle2Y -= 6;
+
+
+        }
+}
+
 function moveEverything() {
-    ballX = ballX + ballSpeedX;
-    ballY = ballY + ballSpeedY;
+    computerMovement();
+
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
 
     if(ballX < 0) {
       //if the ball is below the paddle and aove the paddle|| top+height when crossing the left side, it will flip the horizontal speed other wise it will reset
