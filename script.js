@@ -5,6 +5,9 @@ let ballY = 50;
 let ballSpeedX = 10;
 let ballSpeedY = 4;
 
+let player1Score = 0;
+let player2Score = 0;
+
 let paddle1Y = 250;
 let paddle2Y = 250;
 const paddleThickness = 10;
@@ -72,21 +75,30 @@ function moveEverything() {
             if(ballY > paddle1Y &&
                ballY < paddle1Y+paddleHeight) {
                       ballSpeedX = -ballSpeedX;
+                      // setting the difference of Y
+                      var deltaY = ballY
+                              -(paddle1Y+paddleThickness/2);
+                      ballSpeedY = deltaY * 0.35;
                } else {
                       ballReset();
-          }
+                      player2Score ++;
+               }
     }
 
     if(ballX > canvas.width) {
             if(ballY > paddle2Y &&
               ballY < paddle2Y+paddleHeight) {
                 ballSpeedX = -ballSpeedX;
+                var deltaY = ballY
+                        -(paddle2Y+paddleThickness/2);
+                ballSpeedY = deltaY * 0.35;
             } else {
                     ballReset();
+                    player1Score ++;
+            }
+
+
     }
-
-
-          }
     if(ballY < 0) {
             ballSpeedY = -ballSpeedY;
     }
@@ -106,6 +118,10 @@ function drawCanvas() {
               paddleThickness,paddleHeight,'white');
     //next line draws the ball
     colorCirle(ballX, ballY, 10, 'white')
+
+    //draw scoreboard
+    canvasContext.fillText(player1Score, 100,100);
+    canvasContext.fillText(player2Score, canvas.width-100,100);
 
 }
 
