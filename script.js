@@ -5,17 +5,21 @@ let ballY = 50;
 let ballSpeedX = 10;
 let ballSpeedY = 4;
 
+//defining scores
 let player1Score = 0;
 let player2Score = 0;
 const winningScore = 5;
 
+//winning screen is false to be hidden untill winning score is reached
 let showingWinScreen = false;
 
+//defining paddles height and thickness
 let paddle1Y = 250;
 let paddle2Y = 250;
 const paddleThickness = 10;
 const paddleHeight = 100;
 
+//creating mouse movement function.
 function calculateMousePos(evt) {
   let rect = canvas.getBoundingClientRect();
   let root = document.documentElement;
@@ -27,6 +31,7 @@ function calculateMousePos(evt) {
   };
 }
 
+
 function handleMouseClick(evt) {
           if(showingWinScreen){
             player1Score = 0;
@@ -35,11 +40,14 @@ function handleMouseClick(evt) {
           }
 }
 
+//wait for game to load
 window.onload = function() {
   alert('Ready To Rumble?');
     canvas = document.getElementById('pongCanvas');
     canvasContext = canvas.getContext('2d');
 
+
+//setting speed
     let framesPerSecond = 30
     setInterval(function() {
           moveEverything();
@@ -70,7 +78,7 @@ function ballReset() {
         ballY = canvas.height/2;
 }
 
-//setting up the AI movement
+//setting up the AI movement- watches where the ball is accroding to mddle of paddle and moves to keep it in the middle
 function computerMovement() {
         var paddle2YCenter = paddle2Y + (paddleHeight/2)
         if(paddle2YCenter < ballY-35) {
@@ -92,7 +100,7 @@ function moveEverything() {
     ballY += ballSpeedY;
 
     if(ballX < 0) {
-      //if the ball is below the paddle and aove the paddle|| top+height when crossing the left side, it will flip the horizontal speed other wise it will reset
+      //if the ball is below the paddle and above the paddle|| top+height when crossing the left side, it will flip the horizontal speed other wise it will reset
             if(ballY > paddle1Y &&
                ballY < paddle1Y+paddleHeight) {
                       ballSpeedX = -ballSpeedX;
@@ -131,8 +139,11 @@ function moveEverything() {
           }
 }
 
+//creating function to draw the net with a for loop
 function drawNet () {
+  //creating for loop to draw net in the canvas from top to bottom every 40 px.
   for(var i=0;i<canvas.height; i+=40) {
+          //using colorRect function to draw the lines at half of the canvas's width.
           colorRect(canvas.width/2-1,i,2,20,'white');
   }
 }
@@ -140,7 +151,7 @@ function drawNet () {
 function drawCanvas() {
   //makes the screen black
     colorRect(0,0,canvas.width,canvas.height,'black');
-
+//creating if statement to show winning screen depending on players score >= winningscore
     if(showingWinScreen) {
             canvasContext.fillStyle = "white";
 
@@ -155,7 +166,7 @@ function drawCanvas() {
               canvasContext.fillText("Click To Play Again!", 350,500);
               return;
     }
-
+  //calling the draw net function
     drawNet ();
 
     //this is player1 leftpaddle
