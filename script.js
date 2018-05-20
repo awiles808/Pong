@@ -51,9 +51,10 @@ function ballReset() {
 
 //setting up the AI movement
 function computerMovement() {
-        if(paddle2Y < ballY) {
+        var paddle2YCenter = paddle2Y + (paddleHeight/2)
+        if(paddle2YCenter < ballY-35) {
                 paddle2Y += 6;
-        } else {
+        } else if(paddle2YCenter > ballY+35) {
                 paddle2Y -= 6;
 
 
