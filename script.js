@@ -6,6 +6,8 @@ var ballSpeedX = 10;
 var ballSpeedY = 4;
 
 var paddle1Y = 250;
+var paddle2Y = 250;
+const paddleThickness = 10;
 const paddleHeight = 100;
 
 function calculateMousePos(evt) {
@@ -76,8 +78,11 @@ function moveEverything() {
 function drawCanvas() {
   //makes the screen black
     colorRect(0,0,canvas.width,canvas.height,'black');
-    //this is player1 paddle
-    colorRect(0,paddle1Y,10,paddleHeight,'white');
+    //this is player1 leftpaddle
+    colorRect(0,paddle1Y,paddleThickness,paddleHeight,'white');
+    //this is computer rightpaddle
+    colorRect(canvas.width -paddleThickness,paddle2Y,
+              paddleThickness,paddleHeight,'white');
     //next line draws the ball
     colorCirle(ballX, ballY, 10, 'white')
 
